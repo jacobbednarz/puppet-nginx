@@ -51,7 +51,7 @@ class Nginx < Formula
       --sbin-path=#{bin}/nginx
       --with-cc-opt=#{cc_opt}
       --with-ld-opt=#{ld_opt}
-      --conf-path=#{etc}/nginx/nginx.conf
+      --conf-path=/opt/boxen/config/nginx/nginx.conf
       --pid-path=#{var}/run/nginx.pid
       --lock-path=#{var}/run/nginx.lock
       --http-client-body-temp-path=#{var}/run/nginx/client_body_temp
@@ -81,7 +81,7 @@ class Nginx < Formula
   end
 
   def passenger_caveats; <<-EOS.undent
-    To activate Phusion Passenger, add this to #{etc}/nginx/nginx.conf, inside the 'http' context:
+    To activate Phusion Passenger, add this to /opt/homebrew/config/nginx/nginx.conf, inside the 'http' context:
       passenger_root #{Formula["passenger"].opt_libexec}/src/ruby_supportlib/phusion_passenger/locations.ini;
       passenger_ruby /usr/bin/ruby;
     EOS
@@ -91,10 +91,10 @@ class Nginx < Formula
     s = <<-EOS.undent
     Docroot is: #{var}/www
 
-    The default port has been set in #{etc}/nginx/nginx.conf to 8080 so that
+    The default port has been set in /opt/homebrew/config/nginx/nginx.conf to 8080 so that
     nginx can run without sudo.
 
-    nginx will load all files in #{etc}/nginx/servers/.
+    nginx will load all files in /opt/homebrew/config/nginx/servers/.
     EOS
     s << "\n" << passenger_caveats if build.with? "passenger"
     s
